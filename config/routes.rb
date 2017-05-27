@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :wants do
-    resources :types
+  resources :questions do
+    resources :quotations
+    resources :supports
   end
 end

@@ -10,10 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170524183253) do
+ActiveRecord::Schema.define(version: 20170527162337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "questions", force: :cascade do |t|
+    t.string "email"
+    t.string "company"
+    t.string "website"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "quotations", force: :cascade do |t|
+    t.string "type"
+    t.text "description"
+    t.float "budget"
+    t.text "business_description"
+    t.bigint "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_quotations_on_question_id"
+  end
+
+  create_table "suports", force: :cascade do |t|
+    t.string "type"
+    t.text "description"
+    t.bigint "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_suports_on_question_id"
+  end
+
+  create_table "supports", force: :cascade do |t|
+    t.string "type"
+    t.text "description"
+    t.bigint "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_supports_on_question_id"
+  end
 
   create_table "types", force: :cascade do |t|
     t.string "platform"
@@ -32,5 +69,8 @@ ActiveRecord::Schema.define(version: 20170524183253) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "quotations", "questions"
+  add_foreign_key "suports", "questions"
+  add_foreign_key "supports", "questions"
   add_foreign_key "types", "wants"
 end
